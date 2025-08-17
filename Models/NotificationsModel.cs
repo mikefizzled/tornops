@@ -1,7 +1,10 @@
-﻿public class NotificationsModel
+﻿namespace TornOps.Models
 {
-    public int Messages { get; set; }
-    public int Events { get; set; }
-    public int Awards { get; set; }
-    public int Competition { get; set; }
+    public class NotificationsModel
+    {
+        public int Messages { get; set; }
+        public int Events { get; set; }
+        public int Awards { get; set; }
+        public int Competition { get; set; }
+    }
 }

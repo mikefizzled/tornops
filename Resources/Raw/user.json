@@ -1,0 +1,186 @@
+{
+  "server_time": 1747652859,
+  "level": 17,
+  "gender": "Male",
+  "player_id": 3646712,
+  "name": "Mikefizzled",
+  "education_current": 104,
+  "education_timeleft": 764927,
+  "points": 5,
+  "cayman_bank": 0,
+  "vault_amount": null,
+  "company_funds": 0,
+  "daily_networth": 39844915,
+  "money_onhand": 102530,
+  "energy": {
+    "current": 15,
+    "maximum": 150,
+    "increment": 5,
+    "interval": 600,
+    "ticktime": 141,
+    "fulltime": 15741
+  },
+  "nerve": {
+    "current": 2,
+    "maximum": 40,
+    "increment": 1,
+    "interval": 300,
+    "ticktime": 141,
+    "fulltime": 11241
+  },
+  "happy": {
+    "current": 3750,
+    "maximum": 3750,
+    "increment": 5,
+    "interval": 900,
+    "ticktime": 441,
+    "fulltime": 0
+  },
+  "life": {
+    "current": 833,
+    "maximum": 833,
+    "increment": 41,
+    "interval": 300,
+    "ticktime": 141,
+    "fulltime": 0
+  },
+  "chain": {
+    "current": 1,
+    "maximum": 1000,
+    "timeout": 0,
+    "modifier": 1,
+    "cooldown": 0
+  },
+  "status": {
+    "description": "Okay",
+    "details": "",
+    "state": "Okay",
+    "color": "green",
+    "until": 0
+  },
+  "cooldowns": {
+    "drug": 9844,
+    "medical": 0,
+    "booster": 49184
+  },
+  "education": {
+    "complete": [
+      23,
+      52,
+      53,
+      70,
+      71,
+      88,
+      103
+    ],
+    "current": {
+      "id": 104,
+      "until": 1748417786
+    }
+  },
+  "education_completed": [
+    23,
+    52,
+    53,
+    70,
+    71,
+    88,
+    103
+  ],
+  "city_bank": {
+    "amount": 0,
+    "time_left": 0
+  },
+  "notifications": {
+    "messages": 0,
+    "events": 0,
+    "awards": 0,
+    "competition": 0
+  },
+  "travel": {
+    "destination": "Torn",
+    "method": "Airstrip",
+    "timestamp": 1747645731,
+    "departed": 1747632891,
+    "time_left": 0
+  },
+  "organizedCrime": {
+    "id": 541164,
+    "previous_crime_id": null,
+    "name": "Best of the Lot",
+    "difficulty": 2,
+    "status": "Planning",
+    "created_at": 1747357801,
+    "planning_at": 1747443074,
+    "executed_at": null,
+    "ready_at": 1747788674,
+    "expired_at": 1747962601,
+    "slots": [
+      {
+        "position": "Picklock",
+        "item_requirement": {
+          "id": 1203,
+          "is_reusable": true,
+          "is_available": true
+        },
+        "user_id": 3651684,
+        "user": {
+          "outcome": null,
+          "id": 3651684,
+          "joined_at": 1747443074,
+          "progress": 100
+        },
+        "success_chance": 76,
+        "crime_pass_rate": 76,
+        "checkpoint_pass_rate": 76
+      },
+      {
+        "position": "Car Thief",
+        "item_requirement": null,
+        "user_id": 3621007,
+        "user": {
+          "outcome": null,
+          "id": 3621007,
+          "joined_at": 1747451873,
+          "progress": 42.81
+        },
+        "success_chance": 73,
+        "crime_pass_rate": 73,
+        "checkpoint_pass_rate": 73
+      },
+      {
+        "position": "Muscle",
+        "item_requirement": null,
+        "user_id": 3397903,
+        "user": {
+          "outcome": null,
+          "id": 3397903,
+          "joined_at": 1747479884,
+          "progress": 0
+        },
+        "success_chance": 87,
+        "crime_pass_rate": 87,
+        "checkpoint_pass_rate": 87
+      },
+      {
+        "position": "Impersonator",
+        "item_requirement": {
+          "id": 1350,
+          "is_reusable": true,
+          "is_available": true
+        },
+        "user_id": 3646712,
+        "user": {
+          "outcome": null,
+          "id": 3646712,
+          "joined_at": 1747443094,
+          "progress": 100
+        },
+        "success_chance": 81,
+        "crime_pass_rate": 81,
+        "checkpoint_pass_rate": 81
+      }
+    ],
+    "rewards": null
+  }
+}

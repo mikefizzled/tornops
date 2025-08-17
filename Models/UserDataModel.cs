@@ -1,24 +1,44 @@
-﻿namespace TornOps.Models
+﻿using System.Text.Json.Serialization;
+
+namespace TornOps.Models
 {
     public class UserDataModel
     {
-        public int ServerTime { get; set; }
-        public int Level { get; set; }
-        public string Gender { get; set; }
-        public int PlayerId { get; set; }
-        public string Name { get; set; }
-        public int EducationCurrent { get; set; }
-        public int EducationTimeleft { get; set; }
-        public int Points { get; set; }
-        public long MoneyOnhand { get; set; }
-        public long? VaultAmount { get; set; }
+        [JsonPropertyName("name")]
+        public required string Name { get; set; }
 
-        public BarsModel Bars { get; set; }
-        public TravelModel Travel { get; set; }
-        public EducationUserModel Education { get; set; }
-        public CooldownsModel Cooldowns { get; set; }
-        public NotificationsModel Notifications { get; set; }
-        public StatusModel Status { get; set; }
-        public OrganizedCrimeModel OrganizedCrime { get; set; }
+        [JsonPropertyName("player_id")]
+        public required int PlayerId { get; set; }
+
+        [JsonPropertyName("level")]
+        public required int Level { get; set; }
+
+        [JsonPropertyName("status")]
+        public required StatusModel Status { get; set; }
+
+        [JsonPropertyName("money_onhand")]
+        public required long MoneyOnhand { get; set; }
+
+        [JsonPropertyName("daily_networth")]
+        public required long DailyNetworth { get; set; }
+
+        [JsonPropertyName("cooldowns")]
+        public required CooldownsModel Cooldowns { get; set; }
+
+        [JsonPropertyName("energy")]
+        public required BarSegment Energy { get; set; }
+
+        [JsonPropertyName("nerve")]
+        public required BarSegment Nerve { get; set; }
+
+        [JsonPropertyName("happy")]
+        public required BarSegment Happy { get; set; }
+
+        [JsonPropertyName("life")]
+        public required BarSegment Life { get; set; }
+
+        [JsonPropertyName("chain")]
+        
+        public required ChainModel Chain { get; set; }
     }
 }

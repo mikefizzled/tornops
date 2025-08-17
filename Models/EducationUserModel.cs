@@ -1,5 +1,8 @@
-﻿public class EducationUserModel
+﻿namespace TornOps.Models
 {
-    public int EducationCurrent { get; set; }
-    public int EducationTimeLeft { get; set; }
+    public class EducationUserModel
+    {
+        public int EducationCurrent { get; set; }
+        public int EducationTimeLeft { get; set; }
+    }
 }
