@@ -15,8 +15,12 @@ namespace TornOps
         [ObservableProperty] private string playerFormatted;
         [ObservableProperty] private int playerId;
         [ObservableProperty] private string level;
+        [ObservableProperty] private int points;
         [ObservableProperty] private string moneyOnhandFormatted = "$0";
-        [ObservableProperty] private string dailyNetworthFormatted = $"0";
+        [ObservableProperty] private string dailyNetworthFormatted = "$0";
+        [ObservableProperty] private string caymanBankFormatted = "$0";
+        [ObservableProperty] private string cityBankAmountFormatted = "$0";
+        [ObservableProperty] private string cityBankTimeRemaining = "—";
         #endregion
 
         #region Status
@@ -128,7 +132,7 @@ namespace TornOps
             {
                 PlayerFormatted = $"{userData.Name} [{userData.PlayerId}]";
                 Level = $"Level: {userData.Level}";
-                PlayerId = userData.PlayerId;
+                PlayerId = userData.PlayerId ?? 0;
 
                 if (userData.Status is not null)
                 {
@@ -192,9 +196,15 @@ namespace TornOps
                     ChainFormatted = $"{ChainCurrent} / {ChainNextMilestone}";
                 }
 
-                MoneyOnhandFormatted = $"${userData.MoneyOnhand:N0}";
-                DailyNetworthFormatted = $"${userData.DailyNetworth:N0}";
+                MoneyOnhandFormatted = StatFormatter.MoneyOrDash(userData.MoneyOnhand);
                 
+                DailyNetworthFormatted = StatFormatter.MoneyOrDash(userData.DailyNetworth);
+                CaymanBankFormatted = StatFormatter.MoneyOrDash(userData.CaymanBank);
+                CityBankAmountFormatted = StatFormatter.MoneyOrDash(userData.CityBank?.Amount);
+                CityBankTimeRemaining = StatFormatter.TimeOrDash(userData.CityBank?.Time_Left);
+
+                Points = userData.Points ?? 0;
+
             }
         }
 

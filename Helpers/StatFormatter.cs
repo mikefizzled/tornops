@@ -14,5 +14,13 @@
         {
             return $"{current} / {maximum}";
         }
+        public static string MoneyOrDash(long? v) => v.HasValue ? $"${v.Value:N0}" : "—";
+        public static string CountOrDash(int? v) => v.HasValue ? v.Value.ToString("N0") : "—";
+
+        public static string TimeOrDash(int? seconds)
+            => seconds.HasValue
+                ? (seconds.Value > 0 ? StatFormatter.FormatFullTime(seconds.Value) : "FULL")
+                : "—";
+
     }
 }

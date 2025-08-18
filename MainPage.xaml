@@ -8,80 +8,116 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="10">
 
-            <!-- Header Section -->
-            <VerticalStackLayout>
-                <Label Text="{Binding PlayerFormatted}" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+                    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 4">
 
-                <Label Text="{Binding Level}" FontSize="16" />
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12">
+                    <!-- Name -->
+                    <Label Grid.Row="0" Grid.Column="0"
+           Text="{Binding PlayerFormatted}" FontSize="22" FontAttributes="Bold" />
 
-            </VerticalStackLayout>
+
+                    <!-- Subline: Level • Status • Travel -->
+                    <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="8">
+                        <Label Text="{Binding Level}" />
+                        <Label Text="•" />
+                        <Label Text="{Binding StatusDescription}" IsVisible="{Binding StatusDescription, TargetNullValue=''}" />
+                        <Label Text="{Binding TravelDestination}" IsVisible="{Binding TravelDestination, TargetNullValue=''}" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+
 
             <!-- Energy Section -->
-            <Border BackgroundColor="White" Stroke="Gray" StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 12">
-                <Border.Shadow>
-                    <Shadow Brush="Grey"
-                    Offset="2,2"
-                    Radius="2"
-                    Opacity="0.8"/>
-                </Border.Shadow>
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+                    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 4">
+
                 <VerticalStackLayout>
-                    <Grid ColumnDefinitions="*,2*,*" 
+                    <Grid ColumnDefinitions="*,*,*" 
                         RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-                        ColumnSpacing="15" RowSpacing="5">
-                        <Label Text="Energy:" Grid.Column="0" Grid.Row="0" HorizontalOptions="Start" 
+                        ColumnSpacing="5" RowSpacing="5">
+
+                        <Label Text="Energy:" 
+                               Grid.Column="0" Grid.Row="0" HorizontalOptions="Start" 
                                TextColor="{AppThemeBinding Light=Black, Dark=White}"
  />
-                        <Label Text="{Binding EnergyFormatted}" Grid.Column="1" Grid.Row="0" 
+                        <Label Text="{Binding EnergyFormatted}" 
+                               Grid.Column="1" Grid.Row="0" 
                                HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                        
-                        <Label Text="{Binding EnergyTimeRemaining}" Grid.Column="2" Grid.Row="0" 
-                               HorizontalOptions="End" TextColor="Grey"/>
+
+                        <Label Text="{Binding EnergyTimeRemaining}" 
+                               Grid.Column="2" Grid.Row="0" 
+                               HorizontalOptions="End" TextColor="Gray"/>
                         <ProgressBar Progress="{Binding EnergyPercent}" ProgressColor="#5C9424" 
                                      MinimumHeightRequest="8" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
 
                         <Label Text="Nerve:" Grid.Column="0" Grid.Row="2" 
                                HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                        
+
                         <Label Text="{Binding NerveFormatted}" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start"/>
-                        <Label Text="{Binding NerveTimeRemaining}" Grid.Column="2" Grid.Row="2" HorizontalOptions="End" TextColor="Grey"/>
+                        <Label Text="{Binding NerveTimeRemaining}" Grid.Column="2" Grid.Row="2" HorizontalOptions="End" TextColor="Gray"/>
                         <ProgressBar Progress="{Binding NervePercent}" ProgressColor="#BF542F" MinimumHeightRequest="8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
 
                         <Label Text="Happy:" Grid.Column="0" Grid.Row="4" HorizontalOptions="Start"/>
                         <Label Text="{Binding HappyFormatted}" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start"/>
-                        <Label Text="{Binding HappyTimeRemaining}" Grid.Column="2" Grid.Row="4" HorizontalOptions="End" TextColor="Grey"/>
+                        <Label Text="{Binding HappyTimeRemaining}" Grid.Column="2" Grid.Row="4" HorizontalOptions="End" TextColor="Gray"/>
                         <ProgressBar Progress="{Binding HappyPercent}" ProgressColor="#FBBF24" MinimumHeightRequest="8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
 
                         <Label Text="Life:" Grid.Column="0" Grid.Row="6" HorizontalOptions="Start"/>
                         <Label Text="{Binding LifeFormatted}" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start"/>
-                        <Label Text="{Binding LifeTimeRemaining}" Grid.Column="2" Grid.Row="6" HorizontalOptions="End" TextColor="Grey" />
+                        <Label Text="{Binding LifeTimeRemaining}" Grid.Column="2" Grid.Row="6" HorizontalOptions="End" TextColor="Gray" />
                         <ProgressBar Progress="{Binding LifePercent}" ProgressColor="#3B82F6" MinimumHeightRequest="8" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
-
-                        <Label Text="Chain:" Grid.Column="0" Grid.Row="8" HorizontalOptions="Start"/>
-                        <Label Text="{Binding ChainFormatted}" Grid.Column="1" Grid.Row="8" HorizontalOptions="Start"/>
-                        <!--" Label Text="{Binding ChainTimeRemaining, StringFormat='Next bonus at {0}'}" Grid.Column="1" Grid.Row="8" HorizontalOptions="End"/-->
-                        <ProgressBar Progress="{Binding ChainPercent}" MinimumHeightRequest="8" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Label Text="Chain:" Grid.Column="0" Grid.Row="8"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                        <Label Text="{Binding ChainFormatted}" Grid.Column="1" Grid.Row="8" HorizontalOptions="Start"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                        <ProgressBar Progress="{Binding ChainPercent}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
+                            MinimumHeightRequest="8"/>
                     </Grid>
 
                 </VerticalStackLayout>
             </Border>
 
             <!-- Money Section -->
-            <Border BackgroundColor="White" Stroke="Gray" StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 12">
-                <Border.Shadow>
-                    <Shadow Brush="Grey"
-                    Offset="2,2"
-                    Radius="2"
-                    Opacity="0.8"/>
-                </Border.Shadow>
-                <Grid ColumnDefinitions="*,Auto" RowDefinitions="*, *" ColumnSpacing="15" RowSpacing="5">
-                    <Label Text="Money" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
-                    <Label Text="{Binding MoneyOnhandFormatted}" HorizontalOptions="End" Grid.Row="0" Grid.Column="1"/>
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+                StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 2">
 
-                    <Label Text="Networth" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" HorizontalOptions="Start"/>
-                    <Label Text="{Binding DailyNetworthFormatted}" HorizontalOptions="End" Grid.Row="1" Grid.Column="1"/>
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="15" RowSpacing="10">
+
+                    <Label Text="Points" Grid.Row="0" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding Points}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Money" Grid.Row="1" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding MoneyOnhandFormatted}" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="City Bank" Grid.Row="2" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding CityBankAmountFormatted}" Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    
+                    <Label Text="Cayman Bank" Grid.Row="3" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding CaymanBankFormatted}" Grid.Row="3" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Networth" Grid.Row="4" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding DailyNetworthFormatted}" Grid.Row="4" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+
                 </Grid>
             </Border>
+
         </VerticalStackLayout>
-        
+
     </ScrollView>
 </ContentPage>
