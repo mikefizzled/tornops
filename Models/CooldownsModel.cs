@@ -1,9 +1,11 @@
-﻿namespace TornOps.Models
+﻿using System.Text.Json.Serialization;
+
+namespace TornOps.Models
 {
     public class CooldownsModel
     {
-        public int Drug { get; set; }
-        public int Medical { get; set; }
-        public int Booster { get; set; }
+        [JsonPropertyName("drug")] public int? DrugCooldown { get; set; }
+        [JsonPropertyName("medical")] public int MedicalCooldown { get; set; }
+        [JsonPropertyName("booster")] public int BoosterCooldown { get; set; }
     }
 }
