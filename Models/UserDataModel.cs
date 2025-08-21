@@ -36,6 +36,9 @@ namespace TornOps.Models
         
         public ChainModel? Chain { get; set; }
 
+        [JsonPropertyName("travel")]
+        public TravelModel? Travel { get; set; }
+
         #region Money
         [JsonPropertyName("money_onhand")] public long? MoneyOnhand { get; set; }
         [JsonPropertyName("points")] public int? Points { get; set; }
