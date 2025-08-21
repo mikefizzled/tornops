@@ -1,4 +1,6 @@
 ﻿using TornOps.Models;
+using TornOps.ViewModels;
+
 namespace TornOps
 {
     public partial class MainPage : ContentPage

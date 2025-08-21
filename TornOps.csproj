@@ -111,7 +111,6 @@
 	<ItemGroup>
 	  <Folder Include="Converters\" />
 	  <Folder Include="Services\" />
-	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>
 

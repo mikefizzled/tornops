@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TornOps"
+             xmlns:local="clr-namespace:TornOps.ViewModels"
              x:DataType="local:DashboardViewModel"
              x:Class="TornOps.MainPage">
 
@@ -44,43 +44,68 @@
                                Grid.Column="0" Grid.Row="0" HorizontalOptions="Start" 
                                TextColor="{AppThemeBinding Light=Black, Dark=White}"
  />
-                        <Label Text="{Binding EnergyFormatted}" 
+                        <Label Text="{Binding Energy.Formatted}" 
                                Grid.Column="1" Grid.Row="0" 
                                HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
 
-                        <Label Text="{Binding EnergyTimeRemaining}" 
+                        <Label Text="{Binding Energy.TimeRemaining}" 
                                Grid.Column="2" Grid.Row="0" 
                                HorizontalOptions="End" TextColor="Gray"/>
-                        <ProgressBar Progress="{Binding EnergyPercent}" ProgressColor="#5C9424" 
+                        <ProgressBar Progress="{Binding Energy.Percent}" ProgressColor="#5C9424" 
                                      MinimumHeightRequest="8" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
 
                         <Label Text="Nerve:" Grid.Column="0" Grid.Row="2" 
                                HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
 
-                        <Label Text="{Binding NerveFormatted}" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start"/>
-                        <Label Text="{Binding NerveTimeRemaining}" Grid.Column="2" Grid.Row="2" HorizontalOptions="End" TextColor="Gray"/>
-                        <ProgressBar Progress="{Binding NervePercent}" ProgressColor="#BF542F" MinimumHeightRequest="8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Label Text="{Binding Nerve.Formatted}" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Nerve.TimeRemaining}" Grid.Column="2" Grid.Row="2" HorizontalOptions="End" TextColor="Gray"/>
+                        <ProgressBar Progress="{Binding Nerve.Percent}" ProgressColor="#BF542F" MinimumHeightRequest="8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
 
                         <Label Text="Happy:" Grid.Column="0" Grid.Row="4" HorizontalOptions="Start"/>
-                        <Label Text="{Binding HappyFormatted}" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start"/>
-                        <Label Text="{Binding HappyTimeRemaining}" Grid.Column="2" Grid.Row="4" HorizontalOptions="End" TextColor="Gray"/>
-                        <ProgressBar Progress="{Binding HappyPercent}" ProgressColor="#FBBF24" MinimumHeightRequest="8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Label Text="{Binding Happy.Formatted}" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Happy.TimeRemaining}" Grid.Column="2" Grid.Row="4" HorizontalOptions="End" TextColor="Gray"/>
+                        <ProgressBar Progress="{Binding Happy.Percent}" ProgressColor="#FBBF24" MinimumHeightRequest="8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
 
                         <Label Text="Life:" Grid.Column="0" Grid.Row="6" HorizontalOptions="Start"/>
-                        <Label Text="{Binding LifeFormatted}" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start"/>
-                        <Label Text="{Binding LifeTimeRemaining}" Grid.Column="2" Grid.Row="6" HorizontalOptions="End" TextColor="Gray" />
-                        <ProgressBar Progress="{Binding LifePercent}" ProgressColor="#3B82F6" MinimumHeightRequest="8" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Label Text="{Binding Life.Formatted}" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Life.TimeRemaining}" Grid.Column="2" Grid.Row="6" HorizontalOptions="End" TextColor="Gray" />
+                        <ProgressBar Progress="{Binding Life.Percent}" ProgressColor="#3B82F6" MinimumHeightRequest="8" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
                         <Label Text="Chain:" Grid.Column="0" Grid.Row="8"
                             TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                        <Label Text="{Binding ChainFormatted}" Grid.Column="1" Grid.Row="8" HorizontalOptions="Start"
+                        <Label Text="{Binding Chain.ProgressFormatted}" Grid.Column="1" Grid.Row="8" HorizontalOptions="Start"
                             TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                        <ProgressBar Progress="{Binding ChainPercent}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
+                        <Label Text="{Binding Chain.TimerDisplay}"  Grid.Column="2" Grid.Row="8" HorizontalOptions="End" TextColor="Gray" />
+                        <ProgressBar Progress="{Binding Chain.MilestonePercent}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
                             MinimumHeightRequest="8"/>
+                       
+
                     </Grid>
 
                 </VerticalStackLayout>
             </Border>
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 2">
 
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="15" RowSpacing="10">
+
+                    <Label Text="Drug Cooldown" Grid.Row="0" Grid.Column="0"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding DrugCooldownFormatted}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Medical Cooldown" Grid.Row="1" Grid.Column="0"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Booster Cooldown" Grid.Row="2" Grid.Column="0"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="" Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                </Grid>
+            </Border>
             <!-- Money Section -->
             <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
                 Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
