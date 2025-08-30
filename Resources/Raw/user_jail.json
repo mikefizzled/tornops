@@ -1,0 +1,84 @@
+{
+  "level": 20,
+  "gender": "Male",
+  "player_id": 3646712,
+  "name": "Mikefizzled",
+  "server_time": 1756100107,
+  "points": 109,
+  "cayman_bank": 2000000,
+  "vault_amount": null,
+  "company_funds": 0,
+  "daily_networth": 134847164,
+  "money_onhand": 234448,
+  "education_current": 73,
+  "education_timeleft": 2161482,
+  "status": {
+    "description": "In jail for 1 hrs 43 mins ",
+    "details": "Was caught trying to break out \u003Ca class='t-blue' href = http://www.torn.com/profiles.php?XID=3239811\u003Ecaptivated1\u003C/a\u003E.",
+    "state": "Jail",
+    "color": "red",
+    "until": 1756106314
+  },
+  "energy": {
+    "current": 20,
+    "maximum": 150,
+    "increment": 5,
+    "interval": 600,
+    "ticktime": 293,
+    "fulltime": 15293
+  },
+  "nerve": {
+    "current": 4,
+    "maximum": 50,
+    "increment": 1,
+    "interval": 300,
+    "ticktime": 293,
+    "fulltime": 13793
+  },
+  "happy": {
+    "current": 3650,
+    "maximum": 3650,
+    "increment": 5,
+    "interval": 900,
+    "ticktime": 593,
+    "fulltime": 0
+  },
+  "life": {
+    "current": 1006,
+    "maximum": 1006,
+    "increment": 50,
+    "interval": 300,
+    "ticktime": 293,
+    "fulltime": 0
+  },
+  "chain": {
+    "current": 0,
+    "maximum": 1000,
+    "timeout": 0,
+    "modifier": 0,
+    "cooldown": 0
+  },
+  "city_bank": {
+    "amount": 20384303,
+    "time_left": 0
+  },
+  "cooldowns": {
+    "drug": 15362,
+    "medical": 1727,
+    "booster": 47551
+  },
+  "education_completed": [ 23, 34, 36, 43, 52, 53, 57, 70, 71, 72, 88, 103, 104, 105, 106 ],
+  "notifications": {
+    "messages": 0,
+    "events": 0,
+    "awards": 0,
+    "competition": 0
+  },
+  "travel": {
+    "destination": "Torn",
+    "method": "Airstrip",
+    "timestamp": 1755835625,
+    "departed": 1755834185,
+    "time_left": 0
+  }
+}
