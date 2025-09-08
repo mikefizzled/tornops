@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Xavalon/XamlStyler/master/schema/xamlstyler.schema.json",
+
+  // Put each attribute on a new line for readability
+  "PutAttributesOnNewLine": true,
+  "KeepFirstAttributeOnSameLine": false,
+  "MaxAttributeCharactersPerLine": 0, 
+
+  // Enforce consistent attribute ordering (groups evaluated top-to-bottom)
+  "ReorderAttributes": true,
+  "AttributeOrderingRuleGroups": [
+    "xmlns, xmlns:*",
+    "x:Class, x:Name, x:Key, x:Uid",
+    "Grid.Row, Grid.Column, Grid.RowSpan, Grid.ColumnSpan, Row, Column, RowSpan, ColumnSpan",
+    "Source, Content, Text, Value, ItemsSource, ItemTemplate, ItemTemplateSelector, Command, CommandParameter",
+    "HorizontalOptions, VerticalOptions, HorizontalAlignment, VerticalAlignment, Margin, Padding, Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",
+    "FontSize, FontAttributes, LineBreakMode, TextColor, Opacity",
+    "IsVisible, IsEnabled, *"
+  ],
+
+  // Misc quality-of-life
+  "RemoveDesignTimeReferences": true,
+  "ReorderGridChildren": false,
+  "FormatMarkupExtension": true,
+  "ThicknessSeparator": ",",
+  "SpaceBeforeClosingSlash": true
+}

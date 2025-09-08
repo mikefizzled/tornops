@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg239"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs229">
+    <radialGradient
+       id="radial-gradient-75"
+       cx="1268.0063"
+       cy="7.9999975"
+       r="8"
+       gradientUnits="userSpaceOnUse"
+       fx="1268.0063"
+       fy="7.9999975">
+      <stop
+         offset="0"
+         stop-color="#40c057"
+         id="stop218" />
+      <stop
+         offset="1"
+         stop-color="#2b8a3e"
+         id="stop219" />
+    </radialGradient>
+    <radialGradient
+       id="radial-gradient-76"
+       cx="1278.8395"
+       cy="7.9466444"
+       r="6.9490635"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(0.99150051,1.0085724)"
+       fx="1278.8395"
+       fy="7.9466444">
+      <stop
+         offset="0"
+         stop-color="#e7f5ff"
+         id="stop220" />
+      <stop
+         offset="1"
+         stop-color="#a5d8ff"
+         id="stop221" />
+    </radialGradient>
+    <clipPath
+       id="clip-user_status_icons_sprite_16px">
+      <rect
+         width="1618"
+         height="16"
+         id="rect229"
+         x="0"
+         y="0" />
+    </clipPath>
+  </defs>
+  <g
+     id="user_status_icons_sprite_16px"
+     clip-path="url(#clip-user_status_icons_sprite_16px)"
+     transform="translate(-1260.0063)">
+    <path
+       id="Path_720"
+       d="M 1273.66,2.34 A 8,8 0 1 1 1268,0 a 8,8 0 0 1 5.66,2.34"
+       fill="url(#radial-gradient-75)"
+       style="fill:url(#radial-gradient-75)" />
+    <path
+       id="Path_721"
+       d="m 1272.95,12.95 a 6.951,6.951 0 0 0 1.91,-3.55 c -0.21,0.31 -0.41,0.43 -0.54,-0.27 -0.13,-1.13 -1.17,-0.41 -1.82,-0.81 -0.69,0.46 -2.23,-0.9 -1.97,0.64 0.41,0.69 2.19,-0.93 1.3,0.54 -0.57,1.02 -2.07,3.3 -1.88,4.47 0.02,1.72 -1.75,0.36 -2.36,-0.21 -0.41,-1.14 -0.14,-3.13 -1.22,-3.69 -1.17,-0.05 -2.17,-0.16 -2.62,-1.46 a 2.129,2.129 0 0 1 1.29,-2.54 c 1.47,-0.92 1.99,1.08 3.37,1.12 0.43,-0.45 1.59,-0.59 1.69,-1.09 -0.9,-0.16 1.15,-0.76 -0.09,-1.1 -0.68,0.08 -1.12,0.7 -0.76,1.23 -1.32,0.31 -1.36,-1.9 -2.62,-1.21 -0.03,1.1 -2.07,0.36 -0.7,0.14 0.47,-0.2 -0.76,-0.8 -0.1,-0.69 0.33,-0.02 1.43,-0.4 1.13,-0.66 0.61,-0.38 1.13,0.91 1.73,-0.03 0.43,-0.72 -0.18,-0.86 -0.72,-0.49 -0.3,-0.34 0.54,-1.08 1.29,-1.4 a 1.56,1.56 0 0 1 0.67,-0.15 c 0.38,0.43 1.07,0.51 1.11,-0.05 a 7.007,7.007 0 0 0 -7.2,0.7 c 0.32,0.15 0.51,0.33 0.19,0.57 -0.24,0.72 -1.22,1.68 -2.08,1.55 a 6.95,6.95 0 0 0 -0.87,2.51 c 0.72,0.24 0.89,0.71 0.73,0.87 a 2.407,2.407 0 0 0 -0.71,1.27 7,7 0 0 0 11.86,3.81"
+       fill="url(#radial-gradient-76)"
+       style="fill:url(#radial-gradient-76)" />
+  </g>
+</svg>

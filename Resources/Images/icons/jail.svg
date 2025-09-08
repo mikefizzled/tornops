@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg239"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs229">
+    <radialGradient
+       id="radial-gradient-3"
+       cx="0.5"
+       cy="0.5"
+       r="2.675"
+       gradientTransform="matrix(0.133,0,0,1,0.433,0)"
+       gradientUnits="objectBoundingBox">
+      <stop
+         offset="0"
+         stop-color="#c2b4a5"
+         id="stop65" />
+      <stop
+         offset="1"
+         stop-color="#bd9d8b"
+         id="stop66" />
+    </radialGradient>
+    <radialGradient
+       id="radial-gradient-5"
+       r="1.9553695"
+       gradientTransform="scale(0.36514837,2.7386128)"
+       xlink:href="#radial-gradient-3"
+       cx="2.7386128"
+       cy="2.7386128"
+       fx="2.7386128"
+       fy="2.7386128"
+       gradientUnits="userSpaceOnUse" />
+    <clipPath
+       id="clip-user_status_icons_sprite_16px">
+      <rect
+         width="1618"
+         height="16"
+         id="rect229"
+         x="0"
+         y="0" />
+    </clipPath>
+    <radialGradient
+       xlink:href="#radial-gradient-3"
+       id="radialGradient21"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(2.7386128,0.36514837)"
+       cx="2.7386128"
+       cy="2.7386128"
+       r="14.651578"
+       fx="2.7386128"
+       fy="2.7386128" />
+    <radialGradient
+       xlink:href="#radial-gradient-3"
+       id="radialGradient22"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(2.7386128,0.36514837)"
+       cx="2.7386128"
+       cy="2.7386128"
+       r="14.651578"
+       fx="2.7386128"
+       fy="2.7386128" />
+    <radialGradient
+       xlink:href="#radial-gradient-3"
+       id="radialGradient23"
+       gradientTransform="scale(0.36514837,2.7386128)"
+       r="1.9553695"
+       cx="2.7386128"
+       cy="2.7386128"
+       fx="2.7386128"
+       fy="2.7386128"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     id="user_status_icons_sprite_16px"
+     clip-path="url(#clip-user_status_icons_sprite_16px)"
+     transform="translate(-270)">
+    <rect
+       id="Rectangle_16"
+       data-name="Rectangle 16"
+       width="12"
+       height="12"
+       transform="translate(272,2)"
+       x="0"
+       y="0" />
+    <rect
+       id="Rectangle_17"
+       data-name="Rectangle 17"
+       width="15"
+       height="2"
+       transform="translate(270.5,4.5)"
+       fill="url(#radial-gradient-3)"
+       x="0"
+       y="0"
+       style="fill:url(#radialGradient21)" />
+    <path
+       id="Path_64"
+       data-name="Path 64"
+       d="M 285,5 V 6 H 271 V 5 h 14 m 1,-1 h -16 v 3 h 16 z"
+       fill="#444444" />
+    <rect
+       id="Rectangle_18"
+       data-name="Rectangle 18"
+       width="15"
+       height="2"
+       transform="translate(270.5,9.5)"
+       fill="url(#radial-gradient-3)"
+       x="0"
+       y="0"
+       style="fill:url(#radialGradient22)" />
+    <path
+       id="Path_65"
+       data-name="Path 65"
+       d="m 285,10 v 1 h -14 v -1 h 14 m 1,-1 h -16 v 3 h 16 z"
+       fill="#444444" />
+    <rect
+       id="Rectangle_19"
+       data-name="Rectangle 19"
+       width="10"
+       height="10"
+       transform="translate(273,3)"
+       fill="#7f2f31"
+       opacity="0.3"
+       x="0"
+       y="0" />
+    <rect
+       id="Rectangle_20"
+       data-name="Rectangle 20"
+       width="2"
+       height="15"
+       transform="translate(274.5,0.5)"
+       fill="url(#radial-gradient-5)"
+       x="0"
+       y="0"
+       style="fill:url(#radialGradient23)" />
+    <path
+       id="Path_66"
+       data-name="Path 66"
+       d="m 276,1 v 14 h -1 V 1 h 1 m 1,-1 h -3 v 16 h 3 z"
+       fill="#444444" />
+    <rect
+       id="Rectangle_21"
+       data-name="Rectangle 21"
+       width="2"
+       height="15"
+       transform="translate(279.5,0.5)"
+       fill="url(#radial-gradient-5)"
+       x="0"
+       y="0"
+       style="fill:url(#radial-gradient-5)" />
+    <path
+       id="Path_67"
+       data-name="Path 67"
+       d="m 281,1 v 14 h -1 V 1 h 1 m 1,-1 h -3 v 16 h 3 z"
+       fill="#444444" />
+  </g>
+</svg>

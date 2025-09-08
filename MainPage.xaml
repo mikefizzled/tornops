@@ -1,36 +1,148 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TornOps.ViewModels"
+             x:DataType="local:DashboardViewModel"
              x:Class="TornOps.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+        <VerticalStackLayout Padding="20" Spacing="10">
 
-            <Label
-                Text="Hello, World!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+                    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 4">
 
-            <Label
-                Text="Welcome to &#10;.NET Multi-platform App UI"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12">
+                    <!-- Name -->
+                    <Label Grid.Row="0" Grid.Column="0"
+           Text="{Binding PlayerFormatted}" FontSize="22" FontAttributes="Bold" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+
+                    <!-- Subline: Level • Status • Travel -->
+                    <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="8">
+                        <Label Text="{Binding Level}" />
+                        <Label Text="•" />
+                        <Label Text="{Binding StatusDescription}" IsVisible="{Binding StatusDescription, TargetNullValue=''}" />
+                        <Label Text="{Binding TravelDestination}" IsVisible="{Binding TravelDestination, TargetNullValue=''}" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+
+
+            <!-- Energy Section -->
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+                    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 4">
+
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*,*,*" 
+                        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                        ColumnSpacing="5" RowSpacing="5">
+
+                        <Label Text="Energy:" 
+                               Grid.Column="0" Grid.Row="0" HorizontalOptions="Start" 
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}"
+ />
+                        <Label Text="{Binding Energy.Formatted}" 
+                               Grid.Column="1" Grid.Row="0" 
+                               HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                        <Label Text="{Binding Energy.TimeRemaining}" 
+                               Grid.Column="2" Grid.Row="0" 
+                               HorizontalOptions="End" TextColor="Gray"/>
+                        <ProgressBar Progress="{Binding Energy.Percent}" ProgressColor="#5C9424" 
+                                     MinimumHeightRequest="8" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+                        <Label Text="Nerve:" Grid.Column="0" Grid.Row="2" 
+                               HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                        <Label Text="{Binding Nerve.Formatted}" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Nerve.TimeRemaining}" Grid.Column="2" Grid.Row="2" HorizontalOptions="End" TextColor="Gray"/>
+                        <ProgressBar Progress="{Binding Nerve.Percent}" ProgressColor="#BF542F" MinimumHeightRequest="8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+                        <Label Text="Happy:" Grid.Column="0" Grid.Row="4" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Happy.Formatted}" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Happy.TimeRemaining}" Grid.Column="2" Grid.Row="4" HorizontalOptions="End" TextColor="Gray"/>
+                        <ProgressBar Progress="{Binding Happy.Percent}" ProgressColor="#FBBF24" MinimumHeightRequest="8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+                        <Label Text="Life:" Grid.Column="0" Grid.Row="6" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Life.Formatted}" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Life.TimeRemaining}" Grid.Column="2" Grid.Row="6" HorizontalOptions="End" TextColor="Gray" />
+                        <ProgressBar Progress="{Binding Life.Percent}" ProgressColor="#3B82F6" MinimumHeightRequest="8" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Label Text="Chain:" Grid.Column="0" Grid.Row="8"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                        <Label Text="{Binding Chain.ProgressFormatted}" Grid.Column="1" Grid.Row="8" HorizontalOptions="Start"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                        <Label Text="{Binding Chain.TimerDisplay}"  Grid.Column="2" Grid.Row="8" HorizontalOptions="End" TextColor="Gray" />
+                        <ProgressBar Progress="{Binding Chain.MilestonePercent}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
+                            MinimumHeightRequest="8"/>
+                       
+
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 2">
+
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="15" RowSpacing="10">
+
+                    <Label Text="Drug Cooldown" Grid.Row="0" Grid.Column="0"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding DrugCooldownFormatted}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Medical Cooldown" Grid.Row="1" Grid.Column="0"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Booster Cooldown" Grid.Row="2" Grid.Column="0"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="" Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
+            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                </Grid>
+            </Border>
+            <!-- Money Section -->
+            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+                StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 2">
+
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="15" RowSpacing="10">
+
+                    <Label Text="Points" Grid.Row="0" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding Points}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Money" Grid.Row="1" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding MoneyOnhandFormatted}" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="City Bank" Grid.Row="2" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding CityBankAmountFormatted}" Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    
+                    <Label Text="Cayman Bank" Grid.Row="3" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding CaymanBankFormatted}" Grid.Row="3" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                    <Label Text="Networth" Grid.Row="4" Grid.Column="0"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label Text="{Binding DailyNetworthFormatted}" Grid.Row="4" Grid.Column="1" HorizontalOptions="End"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+
+                </Grid>
+            </Border>
+
         </VerticalStackLayout>
-    </ScrollView>
 
+    </ScrollView>
 </ContentPage>

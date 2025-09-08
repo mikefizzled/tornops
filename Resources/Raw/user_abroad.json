@@ -1,0 +1,99 @@
+{
+  "level": 20,
+  "gender": "Male",
+  "player_id": 3646712,
+  "name": "Mikefizzled",
+  "server_time": 1755829765,
+  "points": 104,
+  "cayman_bank": 2000000,
+  "vault_amount": null,
+  "company_funds": 0,
+  "daily_networth": 136368675,
+  "money_onhand": 176599,
+  "education_current": 36,
+  "education_timeleft": 253305,
+  "status": {
+    "description": "In Cayman Islands",
+    "details": "",
+    "state": "Abroad",
+    "color": "blue",
+    "until": 0
+  },
+  "energy": {
+    "current": 400,
+    "maximum": 150,
+    "increment": 5,
+    "interval": 600,
+    "ticktime": 35,
+    "fulltime": 0
+  },
+  "nerve": {
+    "current": 7,
+    "maximum": 50,
+    "increment": 1,
+    "interval": 300,
+    "ticktime": 35,
+    "fulltime": 12635
+  },
+  "happy": {
+    "current": 3650,
+    "maximum": 3650,
+    "increment": 5,
+    "interval": 900,
+    "ticktime": 35,
+    "fulltime": 0
+  },
+  "life": {
+    "current": 1006,
+    "maximum": 1006,
+    "increment": 50,
+    "interval": 300,
+    "ticktime": 35,
+    "fulltime": 0
+  },
+  "chain": {
+    "current": 0,
+    "maximum": 1000,
+    "timeout": 0,
+    "modifier": 1,
+    "cooldown": 0
+  },
+  "city_bank": {
+    "amount": 20384303,
+    "time_left": 128404
+  },
+  "cooldowns": {
+    "drug": 894,
+    "medical": 0,
+    "booster": 83893
+  },
+  "education_completed": [
+    23,
+    34,
+    43,
+    52,
+    53,
+    57,
+    70,
+    71,
+    72,
+    88,
+    103,
+    104,
+    105,
+    106
+  ],
+  "notifications": {
+    "messages": 0,
+    "events": 0,
+    "awards": 0,
+    "competition": 0
+  },
+  "travel": {
+    "destination": "Cayman Islands",
+    "method": "Airstrip",
+    "timestamp": 1755829681,
+    "departed": 1755828181,
+    "time_left": 0
+  }
+}
