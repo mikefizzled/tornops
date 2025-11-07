@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using TornOps.Models;
-using TornOps.Utils;
+using TornOps.Helpers;
 
 namespace TornOps.ViewModels
 {

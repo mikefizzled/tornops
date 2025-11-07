@@ -93,6 +93,8 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Include="Resources\Images\travel\*" />
+		<MauiImage Include="Resources\Images\icons\*.svg" BaseSize="16,16" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
@@ -110,13 +112,12 @@
 
 	<ItemGroup>
 	  <Folder Include="Converters\" />
-	  <Folder Include="Services\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Resources\Raw\user.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  <Content Include="Resources\Raw\*.json">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
 
@@ -124,12 +125,6 @@
 	  <Compile Update="MauiProgram.cs">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="Resources\Raw\user.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>

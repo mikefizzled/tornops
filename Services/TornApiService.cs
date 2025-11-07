@@ -1,6 +1,8 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 
-namespace TornOps.Models
+using TornOps.Models;
+
+namespace TornOps.Services
 {
     public class TornApiService
     {

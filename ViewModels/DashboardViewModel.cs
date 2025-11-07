@@ -1,59 +1,34 @@
-﻿#pragma warning disable MVVMTK0045
-
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls.Shapes;
 using System.Windows.Input;
+using TornOps.Helpers;
 using TornOps.Models;
-using TornOps.Utils;
+using TornOps.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TornOps.ViewModels
 {
     public partial class DashboardViewModel : ObservableObject
     {
+        [ObservableProperty] private string currentScenario = "user_okay.json";
+        public static IReadOnlyList<(string Label, string File)> Scenarios => new[]
+        {
+        ("Okay",      "user_okay.json"),
+        ("Travel",    "user_travel.json"),
+        ("Abroad",    "user_abroad.json"),
+        ("Hospital",  "user_hospital.json"),
+        ("Jail",      "user_jail.json"),
+    };
+        public IAsyncRelayCommand<string> LoadScenarioCommand { get; }
+        public IAsyncRelayCommand RefreshCommand { get; }
+
         private readonly TornApiService _service = new();
 
         #region Player Info
         [ObservableProperty] private string playerFormatted;
         [ObservableProperty] private int playerId;
         [ObservableProperty] private string level;
-        [ObservableProperty] private int points;
-        [ObservableProperty] private string moneyOnhandFormatted = "$0";
-        [ObservableProperty] private string dailyNetworthFormatted = "$0";
-        [ObservableProperty] private string caymanBankFormatted = "$0";
-        [ObservableProperty] private string cityBankAmountFormatted = "$0";
-        [ObservableProperty] private string cityBankTimeRemaining = "—";
-        #endregion
-
-        #region Status
-        [ObservableProperty] private string statusDescription = "";
-        [ObservableProperty] private string statusState = "";
-        [ObservableProperty] private string statusColor = "";
-        [ObservableProperty] private string statusUntilFormatted = "";
-        #endregion
-
-        #region Travel
-        [ObservableProperty] private string travelDestination;
-        [ObservableProperty] private string travelMethod;
-        [ObservableProperty] private int travelTimeLeft;
-        [ObservableProperty] private string travelTimeRemaining = "";
-        [ObservableProperty] private string travelStatusMessage;
-        #endregion
-
-
-        #region Education
-        [ObservableProperty] private int educationId;
-        [ObservableProperty] private long educationTimeLeft;
-        [ObservableProperty] private string educationName;
-        [ObservableProperty] private string educationTimeRemaining;
-        #endregion
-
-        #region Cooldowns
-        [ObservableProperty] private int drugCooldown;
-        [ObservableProperty] private int medicalCooldown;
-        [ObservableProperty] private int boosterCooldown;
-        [ObservableProperty] private string drugCooldownFormatted;
-        [ObservableProperty] private string medicalCooldownFormatted;
-        [ObservableProperty] private string boosterCooldownFormatted;
         #endregion
 
         public StatBarViewModel Energy { get; } = new();
@@ -61,45 +36,55 @@ namespace TornOps.ViewModels
         public StatBarViewModel Happy { get; } = new();
         public StatBarViewModel Life { get; } = new();
         public ChainViewModel Chain { get; } = new();
+        public TravelViewModel Travel { get; } = new();
+        public StatusViewModel Status { get; } = new();
+        public CooldownsViewModel Cooldowns { get; } = new();
+        public MoneyViewModel Money { get; } = new();
+        public EducationViewModel Education { get; } = new();
+        private readonly EducationCatalogService _eduCatalog = new();
 
+        private bool IsBusy;
+        private string ErrorMessage;
 
         public DashboardViewModel()
         {
-            LoadAsync();
+            LoadScenarioCommand = new AsyncRelayCommand<string>(LoadScenarioAsync);
+            RefreshCommand = new AsyncRelayCommand(() => LoadAsync(CurrentScenario));
         }
-
-        private async void LoadAsync()
+        private async Task LoadScenarioAsync(string? assetFile)
         {
-            
-            var userData = await _service.LoadFromMauiAssetAsync("user.json");
-
-            if (userData != null)
+            if (string.IsNullOrWhiteSpace(assetFile)) return;
+            CurrentScenario = assetFile;
+            await LoadAsync(CurrentScenario);
+        }
+        private async Task LoadAsync(string assetFile)
+        {
+            IsBusy = true; ErrorMessage = "null";
+            try
             {
+                var userData = await _service.LoadFromMauiAssetAsync(assetFile);
+                if (userData is null) { ErrorMessage = $"No data in {assetFile}."; return; }
+
+
                 PlayerFormatted = $"{userData.Name} [{userData.PlayerId}]" ?? "??";
                 Level = $"Level: {userData.Level}" ?? "??";
                 PlayerId = userData.PlayerId ?? 0;
 
-                if (userData.Status is not null)
-                {
-                    StatusDescription = userData.Status.Description;
-                    StatusState = userData.Status.State;
-                    StatusColor = userData.Status.Color;
-                }
                 Energy.UpdateFrom(userData.Energy);
                 Nerve.UpdateFrom(userData.Nerve);
                 Happy.UpdateFrom(userData.Happy);
                 Life.UpdateFrom(userData.Life);
                 Chain.UpdateFrom(userData.Chain);
-
-                MoneyOnhandFormatted = StatFormatter.MoneyOrUnknown(userData.MoneyOnhand);
-                
-                DailyNetworthFormatted = StatFormatter.MoneyOrUnknown(userData.DailyNetworth);
-                CaymanBankFormatted = StatFormatter.MoneyOrUnknown(userData.CaymanBank);
-                CityBankAmountFormatted = StatFormatter.MoneyOrUnknown(userData.CityBank?.Amount);
-                CityBankTimeRemaining = StatFormatter.FormatCooldownOrNone(userData.CityBank?.Time_Left);
-
-                Points = userData.Points ?? 0;
-                DrugCooldownFormatted = StatFormatter.FormatCooldownOrNone(userData.Cooldowns?.DrugCooldown);
+                Travel.UpdateFrom(userData.Travel);
+                Status.UpdateFrom(userData.Status);
+                Money.UpdateFrom(userData);
+                Cooldowns.UpdateFrom(userData.Cooldowns);
+                await Education.UpdateFromAsync(userData.EducationUser, _eduCatalog);
+            }
+            catch (Exception ex) { ErrorMessage = ex.Message; }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

@@ -1,148 +1,471 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TornOps.ViewModels"
-             x:DataType="local:DashboardViewModel"
-             x:Class="TornOps.MainPage">
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TornOps.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:TornOps.ViewModels"
+    x:DataType="vm:DashboardViewModel">
 
+    <!--  Root scroll for the dashboard  -->
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+        <VerticalStackLayout Padding="10" Spacing="5">
 
-            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
-                    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
-                    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 4">
+            <!--  Scenario buttons: quick-load local test fixtures  -->
+            <HorizontalStackLayout Padding="0,8" Spacing="8">
+                <Button
+                    Command="{Binding LoadScenarioCommand}"
+                    CommandParameter="user_okay.json"
+                    Text="Okay" />
+                <Button
+                    Command="{Binding LoadScenarioCommand}"
+                    CommandParameter="user_travel.json"
+                    Text="Travel" />
+                <Button
+                    Command="{Binding LoadScenarioCommand}"
+                    CommandParameter="user_abroad.json"
+                    Text="Abroad" />
+                <Button
+                    Command="{Binding LoadScenarioCommand}"
+                    CommandParameter="user_hospital.json"
+                    Text="Hospital" />
+                <Button
+                    Command="{Binding LoadScenarioCommand}"
+                    CommandParameter="user_jail.json"
+                    Text="Jail" />
+            </HorizontalStackLayout>
 
-                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12">
-                    <!-- Name -->
-                    <Label Grid.Row="0" Grid.Column="0"
-           Text="{Binding PlayerFormatted}" FontSize="22" FontAttributes="Bold" />
+            <!--
+                =========================
+                Player / Status Card
+                Shows: name, level, overall status + timers
+                =========================
+            -->
+            <Border
+                Padding="15,15,10,15"
+                Background="{AppThemeBinding Light=White,
+                                             Dark=#1E1E1E}"
+                Stroke="{AppThemeBinding Light=#DDDDDD,
+                                         Dark=#444444}"
+                StrokeShape="RoundRectangle 4"
+                StrokeThickness="1">
 
+                <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="12"
+                    RowDefinitions="Auto,Auto,Auto">
 
-                    <!-- Subline: Level • Status • Travel -->
-                    <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="8">
+                    <!--  Player header (name + honorifics)  -->
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="22"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding PlayerFormatted}" />
+
+                    <!--  Level + status line (icon + description + conditional timers)  -->
+                    <HorizontalStackLayout
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Spacing="8"
+                        VerticalOptions="Center">
+
+                        <!--  Level text  -->
                         <Label Text="{Binding Level}" />
                         <Label Text="•" />
-                        <Label Text="{Binding StatusDescription}" IsVisible="{Binding StatusDescription, TargetNullValue=''}" />
-                        <Label Text="{Binding TravelDestination}" IsVisible="{Binding TravelDestination, TargetNullValue=''}" />
+
+                        <!--  Status icon (shown when path is non-null/non-empty)  -->
+                        <Image
+                            HeightRequest="16"
+                            IsVisible="{Binding Status.IconPath}"
+                            Source="{Binding Status.IconPath}"
+                            WidthRequest="16" />
+
+                        <!--  Human-readable status  -->
+                        <Label Text="{Binding Status.Description}" />
+
+                        <!--  Travel timer: only visible while travelling  -->
+                        <HorizontalStackLayout IsVisible="{Binding Travel.IsTravelling}" Spacing="6">
+                            <Label Text="•" />
+                            <Label Text="{Binding Travel.TimerDisplay}" />
+                        </HorizontalStackLayout>
+
+                        <!--  Hospital/Jail timer: visible when applicable  -->
+                        <HorizontalStackLayout IsVisible="{Binding Status.InHospital}" Spacing="6">
+                            <Label Text="•" />
+                            <Label Text="{Binding Status.TimerDisplay}" />
+                        </HorizontalStackLayout>
                     </HorizontalStackLayout>
+
+                    <!--  Optional extra status line: e.g., travel destination/cause  -->
+                    <Label
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        FontSize="12"
+                        IsVisible="{Binding Status.HasDetails}"
+                        LineBreakMode="WordWrap"
+                        Opacity="0.85"
+                        Text="{Binding Status.DetailsPlain}" />
                 </Grid>
             </Border>
 
-
-
-            <!-- Energy Section -->
-            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
-                    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
-                    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 4">
+            <!--
+                Energy, Nerve, Happy, Life, Chain
+                label, value, time to full, progress bar
+            -->
+            <Border
+                Padding="15,15,10,15"
+                Background="{AppThemeBinding Light=White,
+                                             Dark=#1E1E1E}"
+                Stroke="{AppThemeBinding Light=#DDDDDD,
+                                         Dark=#444444}"
+                StrokeShape="RoundRectangle 4"
+                StrokeThickness="1">
 
                 <VerticalStackLayout>
-                    <Grid ColumnDefinitions="*,*,*" 
+                    <Grid
+                        ColumnDefinitions="*,*,*"
+                        ColumnSpacing="5"
                         RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-                        ColumnSpacing="5" RowSpacing="5">
+                        RowSpacing="5">
 
-                        <Label Text="Energy:" 
-                               Grid.Column="0" Grid.Row="0" HorizontalOptions="Start" 
-                               TextColor="{AppThemeBinding Light=Black, Dark=White}"
- />
-                        <Label Text="{Binding Energy.Formatted}" 
-                               Grid.Column="1" Grid.Row="0" 
-                               HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                        <!--  Energy  -->
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            Text="Energy:"
+                            TextColor="{AppThemeBinding Light=Black,
+                                                        Dark=White}" />
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalOptions="Start"
+                            Text="{Binding Energy.Formatted}"
+                            TextColor="{AppThemeBinding Light=Black,
+                                                        Dark=White}" />
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            HorizontalOptions="End"
+                            Text="{Binding Energy.TimeRemaining}"
+                            TextColor="Gray" />
+                        <ProgressBar
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            MinimumHeightRequest="8"
+                            Progress="{Binding Energy.Percent}"
+                            ProgressColor="#5C9424" />
 
-                        <Label Text="{Binding Energy.TimeRemaining}" 
-                               Grid.Column="2" Grid.Row="0" 
-                               HorizontalOptions="End" TextColor="Gray"/>
-                        <ProgressBar Progress="{Binding Energy.Percent}" ProgressColor="#5C9424" 
-                                     MinimumHeightRequest="8" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <!--  Nerve  -->
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            Text="Nerve:"
+                            TextColor="{AppThemeBinding Light=Black,
+                                                        Dark=White}" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalOptions="Start"
+                            Text="{Binding Nerve.Formatted}" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            HorizontalOptions="End"
+                            Text="{Binding Nerve.TimeRemaining}"
+                            TextColor="Gray" />
+                        <ProgressBar
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            MinimumHeightRequest="8"
+                            Progress="{Binding Nerve.Percent}"
+                            ProgressColor="#BF542F" />
 
-                        <Label Text="Nerve:" Grid.Column="0" Grid.Row="2" 
-                               HorizontalOptions="Start" TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                        <!--  Happy  -->
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            Text="Happy:" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            HorizontalOptions="Start"
+                            Text="{Binding Happy.Formatted}" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            HorizontalOptions="End"
+                            Text="{Binding Happy.TimeRemaining}"
+                            TextColor="Gray" />
+                        <ProgressBar
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            MinimumHeightRequest="8"
+                            Progress="{Binding Happy.Percent}"
+                            ProgressColor="#FBBF24" />
 
-                        <Label Text="{Binding Nerve.Formatted}" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start"/>
-                        <Label Text="{Binding Nerve.TimeRemaining}" Grid.Column="2" Grid.Row="2" HorizontalOptions="End" TextColor="Gray"/>
-                        <ProgressBar Progress="{Binding Nerve.Percent}" ProgressColor="#BF542F" MinimumHeightRequest="8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <!--  Life row  -->
+                        <Label
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            Text="Life:" />
+                        <Label
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            HorizontalOptions="Start"
+                            Text="{Binding Life.Formatted}" />
+                        <Label
+                            Grid.Row="6"
+                            Grid.Column="2"
+                            HorizontalOptions="End"
+                            Text="{Binding Life.TimeRemaining}"
+                            TextColor="Gray" />
+                        <ProgressBar
+                            Grid.Row="7"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            MinimumHeightRequest="8"
+                            Progress="{Binding Life.Percent}"
+                            ProgressColor="#3B82F6" />
 
-                        <Label Text="Happy:" Grid.Column="0" Grid.Row="4" HorizontalOptions="Start"/>
-                        <Label Text="{Binding Happy.Formatted}" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start"/>
-                        <Label Text="{Binding Happy.TimeRemaining}" Grid.Column="2" Grid.Row="4" HorizontalOptions="End" TextColor="Gray"/>
-                        <ProgressBar Progress="{Binding Happy.Percent}" ProgressColor="#FBBF24" MinimumHeightRequest="8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
-
-                        <Label Text="Life:" Grid.Column="0" Grid.Row="6" HorizontalOptions="Start"/>
-                        <Label Text="{Binding Life.Formatted}" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start"/>
-                        <Label Text="{Binding Life.TimeRemaining}" Grid.Column="2" Grid.Row="6" HorizontalOptions="End" TextColor="Gray" />
-                        <ProgressBar Progress="{Binding Life.Percent}" ProgressColor="#3B82F6" MinimumHeightRequest="8" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
-                        <Label Text="Chain:" Grid.Column="0" Grid.Row="8"
-                            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                        <Label Text="{Binding Chain.ProgressFormatted}" Grid.Column="1" Grid.Row="8" HorizontalOptions="Start"
-                            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                        <Label Text="{Binding Chain.TimerDisplay}"  Grid.Column="2" Grid.Row="8" HorizontalOptions="End" TextColor="Gray" />
-                        <ProgressBar Progress="{Binding Chain.MilestonePercent}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
-                            MinimumHeightRequest="8"/>
-                       
-
+                        <!--  Chain row  -->
+                        <Label
+                            Grid.Row="8"
+                            Grid.Column="0"
+                            Text="Chain:"
+                            TextColor="{AppThemeBinding Light=Black,
+                                                        Dark=White}" />
+                        <Label
+                            Grid.Row="8"
+                            Grid.Column="1"
+                            HorizontalOptions="Start"
+                            Text="{Binding Chain.ProgressFormatted}"
+                            TextColor="{AppThemeBinding Light=Black,
+                                                        Dark=White}" />
+                        <Label
+                            Grid.Row="8"
+                            Grid.Column="2"
+                            HorizontalOptions="End"
+                            Text="{Binding Chain.TimerDisplay}"
+                            TextColor="Gray" />
+                        <ProgressBar
+                            Grid.Row="9"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            MinimumHeightRequest="8"
+                            Progress="{Binding Chain.MilestonePercent}" />
                     </Grid>
-
                 </VerticalStackLayout>
             </Border>
-            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
-    Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
-    StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 2">
 
-                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="15" RowSpacing="10">
+            <!--
+                Cooldowns: drugs / medical / booster
+                Shows icon when an active cooldown exists
+            -->
+            <Border
+                Padding="15,15,10,15"
+                Background="{AppThemeBinding Light=White,
+                                             Dark=#1E1E1E}"
+                Stroke="{AppThemeBinding Light=#DDDDDD,
+                                         Dark=#444444}"
+                StrokeShape="RoundRectangle 2"
+                StrokeThickness="1">
 
-                    <Label Text="Drug Cooldown" Grid.Row="0" Grid.Column="0"
-            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="{Binding DrugCooldownFormatted}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End"
-            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                <Grid
+                    ColumnDefinitions="Auto,*,Auto"
+                    ColumnSpacing="12"
+                    RowDefinitions="Auto,Auto,Auto"
+                    RowSpacing="10">
+                    <!--  Booster  -->
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Booster Cooldown" />
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="{Binding Cooldowns.BoosterIconPath}"
+                        WidthRequest="20" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        HorizontalOptions="End"
+                        Text="{Binding Cooldowns.BoosterFormatted}" />
+                    <!--  Drug  -->
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Drug Cooldown" />
+                    <Image
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="{Binding Cooldowns.DrugIconPath}"
+                        WidthRequest="20" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalOptions="End"
+                        Text="{Binding Cooldowns.DrugFormatted}" />
 
-                    <Label Text="Medical Cooldown" Grid.Row="1" Grid.Column="0"
-            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
-            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-
-                    <Label Text="Booster Cooldown" Grid.Row="2" Grid.Column="0"
-            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="" Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
-            TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <!--  Medical  -->
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="Medical Cooldown" />
+                    <Image
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="{Binding Cooldowns.MedicalIconPath}"
+                        WidthRequest="20" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        HorizontalOptions="End"
+                        Text="{Binding Cooldowns.MedicalFormatted}" />
 
                 </Grid>
             </Border>
-            <!-- Money Section -->
-            <Border Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
-                Stroke="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
-                StrokeThickness="1" Padding="15,15,10,15" StrokeShape="RoundRectangle 2">
 
-                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="15" RowSpacing="10">
+            <!--  Money VM - cash, bank, caymans, points, et  -->
+            <Border
+                Padding="15,15,10,15"
+                Background="{AppThemeBinding Light=White,
+                                             Dark=#1E1E1E}"
+                Stroke="{AppThemeBinding Light=#DDDDDD,
+                                         Dark=#444444}"
+                StrokeShape="RoundRectangle 2"
+                StrokeThickness="1">
 
-                    <Label Text="Points" Grid.Row="0" Grid.Column="0"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="{Binding Points}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                <Grid
+                    ColumnDefinitions="*,*"
+                    ColumnSpacing="15"
+                    RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                    RowSpacing="10">
 
-                    <Label Text="Money" Grid.Row="1" Grid.Column="0"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="{Binding MoneyOnhandFormatted}" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Points"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="{Binding Money.Points}"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
 
-                    <Label Text="City Bank" Grid.Row="2" Grid.Column="0"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="{Binding CityBankAmountFormatted}" Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    
-                    <Label Text="Cayman Bank" Grid.Row="3" Grid.Column="0"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="{Binding CaymanBankFormatted}" Grid.Row="3" Grid.Column="1" HorizontalOptions="End"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Money"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="{Binding Money.OnHandFormatted}"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
 
-                    <Label Text="Networth" Grid.Row="4" Grid.Column="0"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
-                    <Label Text="{Binding DailyNetworthFormatted}" Grid.Row="4" Grid.Column="1" HorizontalOptions="End"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="City Bank"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="{Binding Money.CityBankAmountFormatted}"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
 
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="Cayman Bank"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="{Binding Money.CaymanFormatted}"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
 
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Text="Networth"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="{Binding Money.NetworthFormatted}"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
                 </Grid>
             </Border>
+            <Border
+                Padding="15,15,10,15"
+                Background="{AppThemeBinding Light=White,
+                                             Dark=#1E1E1E}"
+                Stroke="{AppThemeBinding Light=#DDDDDD,
+                                         Dark=#444444}"
+                StrokeShape="RoundRectangle 2"
+                StrokeThickness="1">
+                <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="12"
+                    RowDefinitions="Auto,Auto,Auto"
+                    RowSpacing="6">
 
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        Text="{Binding Education.Discipline}" />
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="{Binding Education.TimeRemaining}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Opacity="0.85"
+                        Text="{Binding Education.CourseName}" />
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        IsVisible="{Binding Education.DisciplineProgressText}"
+                        Opacity="0.85"
+                        Text="{Binding Education.DisciplineProgressText}" />
+                </Grid>
+            </Border>
         </VerticalStackLayout>
-
     </ScrollView>
 </ContentPage>

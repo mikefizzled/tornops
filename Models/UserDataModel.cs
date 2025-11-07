@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
+using TornOps.Models;
 
 namespace TornOps.Models
 {
@@ -12,9 +13,6 @@ namespace TornOps.Models
 
         [JsonPropertyName("level")]
         public int? Level { get; set; }
-
-        [JsonPropertyName("status")]
-        public StatusModel? Status { get; set; }
 
 
         [JsonPropertyName("cooldowns")]
@@ -38,6 +36,34 @@ namespace TornOps.Models
 
         [JsonPropertyName("travel")]
         public TravelModel? Travel { get; set; }
+
+        [JsonPropertyName("status")]
+        public StatusModel? Status { get; set; }
+
+        #region Education
+        [JsonPropertyName("education_current")]
+        public int? EducationCurrent
+        {
+            get; set;
+        }
+        [JsonPropertyName("education_timeleft")]
+        public int? EducationTimeLeft
+        {
+            get; set;
+        }
+        [JsonPropertyName("education_completed")]
+        public List<int>? EducationCompleted
+        {
+            get; set;
+        }
+
+        public EducationUserModel EducationUser => new()
+        {
+            EduCurrent = EducationCurrent,
+            EduTimeLeft = EducationTimeLeft,
+            EduCourseComplete = EducationCompleted ?? new List<int>()
+        };
+        #endregion
 
         #region Money
         [JsonPropertyName("money_onhand")] public long? MoneyOnhand { get; set; }

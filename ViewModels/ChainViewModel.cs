@@ -2,7 +2,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using TornOps.Models;
-using TornOps.Utils;
+using TornOps.Helpers;
 
 
 /// <summary>ViewModel specifically for managing chains.</summary>
